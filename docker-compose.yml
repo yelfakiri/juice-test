@@ -4,19 +4,9 @@ services:
     image: bkimminich/juice-shop
     ports:
       - "3000:3000"
-    restart: unless-stopped
-  # SQLMap - Outil d'automatisation des injections SQL
-  sqlmap:
-    build:
-      context: ./Dockerfiles/sqlmap/.
-    volumes:
-      - ./Dockerfiles/sqlmap/data/queries:/queries
-      - ./Dockerfiles/sqlmap/data/out:/root/.local/share/sqlmap/output
-    restart: unless-stopped
+    networks:
+      - juice
 
-  # DVWA - Damn Vulnerable Web Application
-  dvwa:
-    image: kaakaww/dvwa-docker:latest
-    ports:
-      - "8080:80"
-    restart: unless-stopped
+networks:
+  juice:
+    driver: bridge
